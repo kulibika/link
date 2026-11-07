@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Firefly777s</title>
+<meta name="description" content="Firefly777s — обо мне и где меня найти">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23d4ff3f'/><text x='50' y='70' font-size='62' text-anchor='middle' font-family='monospace' font-weight='700' fill='%23111'>F</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f0c;
+    --bg-2: #161813;
+    --line: #2a2d25;
+    --text: #ecefe4;
+    --muted: #8a8f7f;
+    --accent: #d4ff3f;
+    --accent-ink: #111;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f3f1ea;
+      --bg-2: #ffffff;
+      --line: #dcd8cb;
+      --text: #15160f;
+      --muted: #6b6a60;
+      --accent: #5b3cff;
+      --accent-ink: #fff;
+    }
+  }
+  :root[data-theme="light"] {
+      --bg: #f3f1ea;
+      --bg-2: #ffffff;
+      --line: #dcd8cb;
+      --text: #15160f;
+      --muted: #6b6a60;
+      --accent: #5b3cff;
+      --accent-ink: #fff;
+  }
+  body { transition: background-color .3s ease, color .3s ease; }
+  .theme-btn {
+    position: fixed; top: 16px; right: 16px; z-index: 10;
+    width: 44px; height: 44px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: var(--bg-2); color: var(--text);
+    border: 1px solid var(--line); cursor: pointer;
+    transition: border-color .18s ease, transform .18s ease, background .3s ease;
+  }
+  .theme-btn:hover, .theme-btn:focus-visible { border-color: var(--accent); outline: none; transform: rotate(-12deg); }
+  .theme-btn svg { width: 20px; height: 20px; }
+  .theme-btn .sun { display: none; }
+  .is-dark .theme-btn .sun { display: block; }
+  .is-dark .theme-btn .moon { display: none; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    padding: 64px 16px 48px;
+    overflow-x: hidden;
+  }
+  /* фоновая сетка */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: .35;
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  main { width: 100%; max-width: 560px; }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 4px 12px; margin-bottom: 28px;
+    background: var(--bg-2);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+         box-shadow: 0 0 0 0 var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); }
+    70% { box-shadow: 0 0 0 8px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+
+  h1 {
+    font-family: "Unbounded", sans-serif;
+    font-weight: 800;
+    font-size: clamp(44px, 13vw, 76px);
+    line-height: .95;
+    letter-spacing: -0.03em;
+    word-break: break-word;
+  }
+  h1 span { color: var(--accent); }
+  .handle { margin-top: 12px; color: var(--muted); }
+  .handle b { color: var(--text); font-weight: 600; }
+
+  .bio {
+    margin-top: 32px;
+    padding: 20px 22px;
+    border-left: 3px solid var(--accent);
+    background: var(--bg-2);
+    border-radius: 0 12px 12px 0;
+  }
+  .bio p + p { margin-top: 10px; }
+  .bio .muted { color: var(--muted); font-size: 13px; }
+
+  h2 {
+    margin: 44px 0 14px;
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .14em;
+    color: var(--muted);
+  }
+
+  .links { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; list-style: none; }
+  .links > li { min-width: 0; }
+  .link {
+    display: flex; align-items: center; gap: 16px;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--bg-2);
+    color: inherit; text-decoration: none;
+    font: inherit; text-align: left; cursor: pointer;
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .link:hover, .link:focus-visible {
+    transform: translateX(4px);
+    border-color: var(--accent);
+    outline: none;
+  }
+  .ico {
+    flex: none;
+    width: 42px; height: 42px; border-radius: 11px;
+    display: grid; place-items: center;
+    background: var(--bg); border: 1px solid var(--line);
+    transition: background .18s ease, color .18s ease;
+  }
+  .ico svg { width: 20px; height: 20px; }
+  .link:hover .ico, .link:focus-visible .ico { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .txt { flex: 1; min-width: 0; }
+  .txt strong { display: block; font-weight: 600; }
+  .txt small { display: block; color: var(--muted); font-size: 13px;
+               overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .arrow { flex: none; color: var(--muted); transition: color .18s ease, transform .18s ease; }
+  .link:hover .arrow { color: var(--accent); transform: translate(2px, -2px); }
+
+  footer { margin-top: 48px; color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px;
+    transform: translate(-50%, 20px);
+    background: var(--accent); color: var(--accent-ink);
+    padding: 10px 18px; border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    opacity: 0; pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* плавное появление */
+  .rise { opacity: 0; transform: translateY(12px); animation: rise .6s ease forwards; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .rise, .dot { animation: none; opacity: 1; transform: none; }
+  }
+</style>
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
+</head>
+<body>
+<button class="theme-btn" id="themeBtn" type="button" aria-label="Сменить тему" title="Сменить тему">
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<main>
+  <div class="tag rise"><span class="dot"></span>на связи</div>
+
+  <h1 class="rise" style="animation-delay:.05s">Firefly777s<span>.</span></h1>
+  <p class="handle rise" style="animation-delay:.1s"><b>@Firefly777s</b></p>
+
+  <h2 class="rise" style="animation-delay:.2s">// ссылки</h2>
+  <ul class="links">
+    <li class="rise" style="animation-delay:.25s">
+      <a class="link" href="https://www.instagram.com/dpol.ar?cplk=aG9mem5peDRqNHU4" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></span>
+        <span class="txt"><strong>Instagram</strong><small>@dpol.ar</small></span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </li>
+    <li class="rise" style="animation-delay:.3s">
+      <a class="link" href="https://vk.ru/id747816094" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.547 7.4c.14-.46 0-.8-.66-.8h-2.19c-.55 0-.8.29-.94.62 0 0-1.12 2.72-2.7 4.49-.51.52-.75.69-1.03.69-.14 0-.35-.17-.35-.65V7.4c0-.55-.16-.8-.62-.8H9.6c-.35 0-.55.26-.55.5 0 .52.78.64.86 2.1v3.17c0 .7-.13.82-.41.82-.75 0-2.58-2.73-3.66-5.86-.21-.61-.43-.86-.98-.86H2.67c-.62 0-.75.29-.75.62 0 .58.75 3.51 3.5 7.36 1.83 2.63 4.41 4.05 6.76 4.05 1.41 0 1.58-.32 1.58-.86v-1.97c0-.63.13-.76.58-.76.33 0 .9.17 2.22 1.44 1.51 1.51 1.76 2.19 2.61 2.19h2.19c.62 0 .94-.31.76-.92-.2-.61-.91-1.5-1.85-2.56-.51-.62-1.28-1.29-1.52-1.62-.33-.44-.24-.63 0-1.02 0 0 2.75-3.87 3.03-5.2z"/></svg></span>
+        <span class="txt"><strong>ВКонтакте</strong><small>vk.ru/id747816094</small></span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </li>
+    <li class="rise" style="animation-delay:.35s">
+      <a class="link" href="https://pin.it/4r7wgVQz5" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg></span>
+        <span class="txt"><strong>Pinterest</strong><small>pin.it/4r7wgVQz5</small></span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </li>
+    <li class="rise" style="animation-delay:.4s">
+      <a class="link" href="https://www.tiktok.com/@dpol.ar" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
+        <span class="txt"><strong>TikTok</strong><small>@dpol.ar</small></span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </li>
+  </ul>
+
+  <footer class="rise" style="animation-delay:.45s">
+    <span>© <span id="y">2026</span> Firefly777s</span>
+    <span>сделано на чистом HTML</span>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const toast = document.getElementById('toast');
+  let t;
+  function show(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(t);
+    t = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const val = btn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(val);
+      } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = val; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        ta.remove();
+      }
+      show(btn.dataset.msg || 'Скопировано');
+    });
+  });
+  // переключение темы
+  const root = document.documentElement;
+  const mq = window.matchMedia('(prefers-color-scheme: light)');
+  function isDark() {
+    const t = root.getAttribute('data-theme');
+    return t ? t === 'dark' : !mq.matches;
+  }
+  function sync() { root.classList.toggle('is-dark', isDark()); }
+  sync();
+  mq.addEventListener && mq.addEventListener('change', sync);
+  document.getElementById('themeBtn').addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    sync();
+  });
+</script>
+</body>
+</html>
